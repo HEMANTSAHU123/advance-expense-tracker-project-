@@ -1,14 +1,30 @@
-import React from 'react'
-import { Navbar } from 'react-bootstrap'
+import React,{useState} from 'react';
+import { Container, Row, Col, Button ,Navbar} from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-const Profile = () => {
+function completeprofile() {
+  
+  
   return (
-    <div>
-      <Navbar>
-      welcome to expense tracker
-      </Navbar>
-    </div>
-  )
+    <>
+    <Navbar>
+    <Container>
+      <Row className="justify-content-center">
+        <Col md={8} className="text-center">
+          <h1>Welcome to Expense Tracker!!!</h1>
+          <p>Your profile is incomplete. Complete now</p>
+          <Link to="/profile-completion">
+            <Button variant="primary">Complete now</Button>
+          </Link>
+        </Col>
+      </Row>
+    </Container>
+    </Navbar>
+    <hr style={{ margin: '0' }}/>
+</>
+
+ 
+  );
 }
 
-export default Profile
+export default completeprofile;

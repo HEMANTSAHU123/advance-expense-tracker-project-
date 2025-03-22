@@ -43,7 +43,7 @@ import {
           <Form onSubmit={handlesubmit}>
             <h3 className="text-center mb-4">Login Form</h3>
             
-            {/* Email Input */}
+          
             <Form.Group controlId="formBasicEmail" className="mb-3">
               <Form.Label>
                 <Envelope className="me-2" />
@@ -59,7 +59,7 @@ import {
               />
             </Form.Group>
 
-            {/* Password Input */}
+         
             <Form.Group controlId="formBasicPassword" className="mb-4">
               <Form.Label>
                 <Lock className="me-2" />
@@ -75,14 +75,13 @@ import {
               />
             </Form.Group>
 
-            {/* Submit Button */}
+         
             <div className="d-grid">
               <Button variant="primary" type="submit" size="lg" className="mb-3">
                 Submit
               </Button>
             </div>
 
-            {/* Forgot Password Link */}
             <p className="text-center mt-3">
               <a href="#" className="text-decoration-none">
                 Forgot password?
