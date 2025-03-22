@@ -10,6 +10,7 @@ import Login from "./signupPage/Login";
 import { ToastContainer } from "react-bootstrap";
 import Profile from "./signupPage/Profile";
 import Incompleteprofile from "./signupPage/Incompleteprofile";
+import EditUserProfile from "./signupPage/EditUserProfile";
 const App = () => {
   return (
     <Router>
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile/>}></Route>
         <Route path="/profile-completion" element={<Incompleteprofile/>}/>
+        <Route path="/profile/edit/:userId" element={<EditUserProfile />} />
       </Routes>
       <ToastContainer />
     </Router>

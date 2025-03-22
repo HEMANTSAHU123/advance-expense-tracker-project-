@@ -1,8 +1,9 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
 
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth} from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBko4QXtVsWVUjkRwu7uQwPurKd29VJYg4",
   authDomain: "expense-tracker-d6a25.firebaseapp.com",
