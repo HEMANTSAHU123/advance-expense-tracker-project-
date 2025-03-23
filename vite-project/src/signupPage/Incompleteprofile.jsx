@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Container, Row, Col, Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
-import { db } from '../firebase/firebase'; // Ensure correct path to your firebase.js file
+import { db } from '../firebase/firebase'; 
 import { Github, Globe } from 'react-bootstrap-icons';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';

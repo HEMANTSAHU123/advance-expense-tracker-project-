@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Row, Col, Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
 import { db } from '../firebase/firebase';
+import { Link } from 'react-router-dom';
 import { Github, Globe } from 'react-bootstrap-icons';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
@@ -71,10 +72,10 @@ const EditUserProfile = () => {
   return (
     <>
       <Navbar expand="lg">
-        {/* Navbar code... */}
       </Navbar>
       <hr style={{ margin: '0' }} />
       <Col xs={12} className="d-flex justify-content-end">
+      <Link to='/login'><Button>logout</Button></Link>
         <Button variant="primary" onClick={() => navigate('/profile-completion')} style={{ color: 'red', backgroundColor: 'white' }}>
           Cancel
         </Button>
