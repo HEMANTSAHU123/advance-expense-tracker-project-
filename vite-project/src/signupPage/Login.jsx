@@ -1,9 +1,10 @@
 import {
-    signInWithEmailAndPassword,
+    signInWithEmailAndPassword, sendEmailVerification
   
   } from 'firebase/auth';
   import React, { useState } from 'react';
   import { Form, Button, Container, Row, Col, Modal } from 'react-bootstrap';
+  import { Link } from 'react-router-dom';
   import { auth } from '../firebase/firebase';
   import { Envelope, Lock } from 'react-bootstrap-icons';
   import { toast } from 'react-toastify';
@@ -23,7 +24,13 @@ import {
     const handlesubmit = async (event) => {
       event.preventDefault();
       try {
-        await signInWithEmailAndPassword(auth, list.email, list.password);
+      const userCredential=  await signInWithEmailAndPassword(auth, list.email, list.password);
+      const user=userCredential.user;
+      if(!user.emailVerified){
+        await sendEmailVerification(user);
+        alert('alert verification link send')
+        toast.info('email verification send check ur inbox')
+      }
         console.log('user logged successfully');
        navigate('/profile')
         toast.success('user logged successfully');
@@ -83,13 +90,13 @@ import {
             </div>
 
             <p className="text-center mt-3">
-              <a href="#" className="text-decoration-none">
+              <Link to="#" className="text-decoration-none">
                 Forgot password?
-              </a>
+              </Link>
             </p>
             </Form>
             <p className="mt-3 text-center">
-                Don't have an account ? <a href="/signup">sign up</a>
+                Don't have an account ?<Link to='/'>signup</Link>
               </p>
           </Col>
         </Row>
