@@ -24,7 +24,7 @@ const EditUserProfile = () => {
         }
         console.log('Fetching user data for userId:', userId);
 
-        const userDocRef = doc(db, 'myprofile', userId); // Correct collection
+        const userDocRef = doc(db, 'myprofile', userId); 
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists() && userDoc.data()) {
@@ -55,7 +55,7 @@ const EditUserProfile = () => {
         console.error('userId is undefined or invalid');
         return;
       }
-      const userDocRef = doc(db, 'myprofile', userId); // Correct collection
+      const userDocRef = doc(db, 'myprofile', userId); 
       await updateDoc(userDocRef, data);
       console.log('User data updated successfully for userId:', userId);
       navigate(`/profile/edit/${userId}`);
@@ -75,7 +75,7 @@ const EditUserProfile = () => {
       </Navbar>
       <hr style={{ margin: '0' }} />
       <Col xs={12} className="d-flex justify-content-end">
-        <Button variant="primary" onClick={() => navigate(`/profile/edit/${userId}`)} style={{ color: 'red', backgroundColor: 'white' }}>
+        <Button variant="primary" onClick={() => navigate('/profile-completion')} style={{ color: 'red', backgroundColor: 'white' }}>
           Cancel
         </Button>
       </Col>

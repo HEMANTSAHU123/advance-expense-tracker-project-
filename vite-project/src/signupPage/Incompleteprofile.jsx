@@ -24,8 +24,10 @@ const navigate=useNavigate();
         fullname: data.fullname,
         url: data.url,
       });
+ 
       console.log('Document written with ID: ', docRef.id);
-    navigate(`/profile/edit/${docRef.id}`);
+      navigate(`/profile/edit/${docRef.id}`); 
+ 
     } catch (error) {
       console.error('Error adding document: ', error);
       
@@ -71,11 +73,11 @@ const navigate=useNavigate();
             </FormLabel>
             <FormControl type="text" name="url" value={data.url} onChange={handleChange} />
           </FormGroup>
-      <Link to='/profile/edit/:userId'>
+      
           <Button variant="primary" type="submit">
             Update
           </Button>
-          </Link>
+        
     
         </Form>
       </Container>
