@@ -11,6 +11,7 @@ import { ToastContainer } from "react-bootstrap";
 import Profile from "./signupPage/Profile";
 import Incompleteprofile from "./signupPage/Incompleteprofile";
 import EditUserProfile from "./signupPage/EditUserProfile";
+import ForgotPassword from "./signupPage/Forgot password";
 const App = () => {
   return (
     <Router>
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/profile" element={<Profile/>}></Route>
         <Route path="/profile-completion" element={<Incompleteprofile />} />
         <Route path="/profile/edit/:userId" element={<EditUserProfile />} />
+        <Route path="/forgot" element={<ForgotPassword/>}></Route>
       </Routes>
       <ToastContainer />
     </Router>

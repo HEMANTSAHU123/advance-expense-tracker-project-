@@ -90,7 +90,7 @@ import {
             </div>
 
             <p className="text-center mt-3">
-              <Link to="#" className="text-decoration-none">
+              <Link to="/forgot" className="text-decoration-none">
                 Forgot password?
               </Link>
             </p>
