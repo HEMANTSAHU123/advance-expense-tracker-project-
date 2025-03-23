@@ -45,7 +45,7 @@ const navigate=useNavigate();
             <Col xs={12} md={6} className="text-right">
               <p style={{ color: 'black', backgroundColor: '#D2B48C', borderRadius: '7px', fontStyle: 'italic' }}>
                 Your profile is 64% completed, a complete profile has higher chances of landing in a job.
-                <Link to="/editurl">Complete now</Link>
+                <Link to="/expense">Complete now</Link>
               </p>
             </Col>
           </Row>

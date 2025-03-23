@@ -12,6 +12,7 @@ import Profile from "./signupPage/Profile";
 import Incompleteprofile from "./signupPage/Incompleteprofile";
 import EditUserProfile from "./signupPage/EditUserProfile";
 import ForgotPassword from "./signupPage/Forgot password";
+import Dailyexpense from "./dailyExpense/Dailyexpense";
 const App = () => {
   return (
     <Router>
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/profile-completion" element={<Incompleteprofile />} />
         <Route path="/profile/edit/:userId" element={<EditUserProfile />} />
         <Route path="/forgot" element={<ForgotPassword/>}></Route>
+        <Route path="/expense" element={<Dailyexpense/>}></Route>
       </Routes>
       <ToastContainer />
     </Router>
