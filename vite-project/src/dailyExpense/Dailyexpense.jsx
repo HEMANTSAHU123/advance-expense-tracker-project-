@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-
+import { realtimedatabase } from '../firebase/firebase';
+import { ref,push } from 'firebase/database';
 const Dailyexpense = () => {
     const [list, setList] = useState({
         totalmoney: '',
         description: '',
         category: 'food', 
     });
+const[loading,setLoading]=useState(false);
+const[error,setError]=useState(null);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setList((prevdata) => ({ ...prevdata, [name]: value }));
     };
 
-    const handleFormChange = (event) => {
+    const handleFormChange = async(event) => {
         event.preventDefault();
+        setLoading(true);
+        setError(null)
         console.log("Form Data:", list);
-       
+      
+       try{
+const expenseref=ref(realtimedatabase,'expenses');
+ await push(expenseref,list);
+       }catch(error){
+        console.error('error saving data:',error);
+        setError(error.message|| 'error occured while saving data')
+
+       }
     };
 
     return (
