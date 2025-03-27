@@ -3,8 +3,9 @@ import { db } from '../firebase/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { auth } from '../firebase/firebase';
+
 export const signupUser = createAsyncThunk(
-    'signup/register', 
+    'sr', 
     async (data) => {
         console.log(data)
         try {
@@ -22,7 +23,7 @@ export const signupUser = createAsyncThunk(
                 });
                 return user ;
             }
-           return user;
+        
     
         } catch (error) {
             console.log(error.message);
@@ -36,11 +37,16 @@ export const authSlice = createSlice({
         user: null,
         isLoading: false,
         error: null,
+        isAuthenticated: false, 
     },
     reducers: {
         resetSignupState: (state) => {
             state.isLoading = false;
             state.error = null;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = !!action.payload; 
         },
     },
     extraReducers: (builder) => {
@@ -60,7 +66,7 @@ export const authSlice = createSlice({
     },
 });
 
-export const { resetSignupState } = authSlice.actions;
+export const { resetSignupState,setUser } = authSlice.actions;
 
 
 

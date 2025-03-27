@@ -1,10 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { Envelope, Lock } from 'react-bootstrap-icons';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, resetLoginState } from '../Store/loginSlice';
+
+
 const Login = () => {
   const [list, setList] = useState({
       email: '',
@@ -12,7 +16,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isLoading, error, isLoggedIn } = useSelector(
+  const { user, isLoading, error, } = useSelector(
       (state) => state.login
   );
  
@@ -110,8 +114,8 @@ const Login = () => {
                       </p>
                   </Form>
                   <p className="mt-3 text-center">
-                      Don't have an account ?<Link to='/'>signup</Link>
-                  </p>
+  Don't have an account ?<a href="/">signup</a>
+</p>
               </Col>
           </Row>
       </Container>

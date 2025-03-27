@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { auth,db } from '../firebase/firebase'; // Adjust path as needed
+import { auth,db } from '../firebase/firebase'; 
 import { signInWithEmailAndPassword, sendEmailVerification  } from 'firebase/auth';
 
 const initialState = {
@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
 console.log(user)
       
 
-      // Extract serializable user data
+    
       return {
         uid: user.uid,
         email: user.email,
@@ -57,7 +57,7 @@ console.log(user)
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.user = action.payload; // Store serializable user data
+        state.user = action.payload; 
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;

@@ -1,12 +1,9 @@
 import React, {useState,useEffect } from 'react';
-import { auth, db } from '../firebase/firebase';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { setDoc, doc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import MyNavbar from './Navbar';
 import { useDispatch,useSelector } from 'react-redux';
-import { signupUser,resetSignupState } from '../Store/authSlice';
+import { signupUser,resetSignupState } from '../Store/authSlice'
 const Signup = () => {
   const [data, setData] = useState({
     email: '',
@@ -76,7 +73,7 @@ const{error,user,isLoading}=useSelector(state=>state.auth)
                   </Form.Group>
 
                   <Button variant="primary" type="submit" className="w-100 mt-3" disabled={isLoading}>
-                    {isLoading ? 'Signing Up...' : 'Sign Up'}
+                    {isLoading ? 'Signing Up...' : 'sign Up'}
                   </Button>
                 </Form>
                 <p className="text-center mt-3">

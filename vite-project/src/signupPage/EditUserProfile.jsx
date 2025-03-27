@@ -75,7 +75,7 @@ const EditUserProfile = () => {
       </Navbar>
       <hr style={{ margin: '0' }} />
       <Col xs={12} className="d-flex justify-content-end">
-      <Link to='/login'><Button>logout</Button></Link>
+      <Link to='/'><Button>logout</Button></Link>
         <Button variant="primary" onClick={() => navigate('/profile-completion')} style={{ color: 'red', backgroundColor: 'white' }}>
           Cancel
         </Button>

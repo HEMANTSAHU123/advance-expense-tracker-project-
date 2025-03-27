@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import Signup from "./signupPage/Signup";
+import AuthStateListener from "./components/AuthStateListner";
 import Login from "./signupPage/Login";
 import { ToastContainer } from "react-bootstrap";
 import Profile from "./signupPage/Profile";
@@ -13,10 +13,14 @@ import Incompleteprofile from "./signupPage/Incompleteprofile";
 import EditUserProfile from "./signupPage/EditUserProfile";
 import ForgotPassword from "./signupPage/Forgot password";
 import Dailyexpense from './dailyExpense/Dailyexpense'
+
+import Signup from "./signupPage/Signup";
 const App = () => {
   return (
     <Router>
+       <AuthStateListener />
       <Routes>
+        
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile/>}></Route>
