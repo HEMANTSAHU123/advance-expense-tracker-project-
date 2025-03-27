@@ -12,7 +12,7 @@ import Profile from "./signupPage/Profile";
 import Incompleteprofile from "./signupPage/Incompleteprofile";
 import EditUserProfile from "./signupPage/EditUserProfile";
 import ForgotPassword from "./signupPage/Forgot password";
-import Dailyexpense from "./dailyExpense/Dailyexpense";
+import Dailyexpense from './dailyExpense/Dailyexpense'
 const App = () => {
   return (
     <Router>

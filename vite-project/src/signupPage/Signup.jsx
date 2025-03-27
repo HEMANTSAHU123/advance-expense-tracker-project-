@@ -1,49 +1,46 @@
-import React, { useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import { auth, db } from '../firebase/firebase';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { setDoc, doc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import MyNavbar from './Navbar';
+import { useDispatch,useSelector } from 'react-redux';
+import { signupUser,resetSignupState } from '../Store/authSlice';
 const Signup = () => {
-  const [list, setList] = useState({
+  const [data, setData] = useState({
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
-
+const dispatch=useDispatch();
+const{error,user,isLoading}=useSelector(state=>state.auth)
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setList((prevdata) => ({ ...prevdata, [name]: value }));
+    setData((prevdata) => ({ ...prevdata, [name]: value }));
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setError('');
-    setLoading(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        list.email,
-        list.password
-      );
-      const user = userCredential.user;
-      if (user) {
-        await setDoc(doc(db, 'User', user.uid), {
-          email: user.email,
-        });
-      }
-      console.log('user register successfully');
-      setLoading(false);
+    dispatch(signupUser(data))
+  }
+ 
+  useEffect(()=>{
+    if (user) {
+      console.log('user registered succesfully', user);
       navigate('/login');
-    } catch (error) {
-      console.error('Error handling signup:', error.message);
-      setError(error.message);
-      setLoading(false);
-    }
+      dispatch(resetSignupState());
+  }
+  if (error) {
+      console.log('Signup error', error);
+  }
+  return () => {
+      dispatch(resetSignupState());
   };
+}, [user, error, navigate, dispatch]);
+
+  
 
   return (
     <>    <MyNavbar/>
@@ -62,7 +59,7 @@ const Signup = () => {
                       type="email"
                       placeholder="Enter email"
                       name="email"
-                      value={list.email}
+                      value={data.email}
                       onChange={handleChange}
                     />
                   </Form.Group>
@@ -73,13 +70,13 @@ const Signup = () => {
                       type="password"
                       placeholder="Password"
                       name="password"
-                      value={list.password}
+                      value={data.password}
                       onChange={handleChange}
                     />
                   </Form.Group>
 
-                  <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
-                    {loading ? 'Signing Up...' : 'Sign Up'}
+                  <Button variant="primary" type="submit" className="w-100 mt-3" disabled={isLoading}>
+                    {isLoading ? 'Signing Up...' : 'Sign Up'}
                   </Button>
                 </Form>
                 <p className="text-center mt-3">

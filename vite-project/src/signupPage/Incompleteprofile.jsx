@@ -53,9 +53,11 @@ const navigate=useNavigate();
       </Navbar>
       <hr style={{ margin: '0' }} />
       <Col xs={12} className="d-flex justify-content-end">
-        <Button variant="primary" type="submit" style={{ color: 'red', backgroundColor: 'white' }}>
+     
+     <Link to='/profile'>  <Button variant="primary" type="submit" style={{ color: 'red', backgroundColor: 'white' }}>
           Cancel
         </Button>
+        </Link> 
       </Col>
       <Container className="mt-4">
         <h2>Contact Details</h2>

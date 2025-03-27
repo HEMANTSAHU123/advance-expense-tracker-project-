@@ -1,82 +1,89 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Container, Row, Col,ListGroup, } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { realtimedatabase } from '../firebase/firebase';
-import { ref,push,onValue,remove,update } from 'firebase/database';
+import { ref, push, onValue, remove, update } from 'firebase/database';
+
 const Dailyexpense = () => {
     const [list, setList] = useState({
         totalmoney: '',
         description: '',
-        category: 'food', 
+        category: 'food',
     });
-const[loading,setLoading]=useState(false);
-const[error,setError]=useState(null);
-const[expenses,setExpenses]=useState([])
-const[editId,setEditId]=useState(null)
-useEffect(()=>{
-    const expenseref=ref(realtimedatabase,'expenses');
-    const unsubscribe=onValue(expenseref,(snapshot)=>{
-        const data=snapshot.val();
-        if(data){
-            const expensearr=Object.keys(data).map((key)=>({
-                id:key,
-                ...data[key]
-            }))
-            setExpenses(expensearr);
-        }
-        else{
-            setExpenses([]);
-        }
-    })
-    return ()=>unsubscribe();
-},[])
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [expenses, setExpenses] = useState([]);
+    const [editId, setEditId] = useState(null);
+
+    useEffect(() => {
+        const expenseref = ref(realtimedatabase, 'expenses');
+        const unsubscribe = onValue(expenseref, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const expensearr = Object.keys(data).map((key) => ({
+                    id: key,
+                    ...data[key],
+                }));
+                setExpenses(expensearr);
+            } else {
+                setExpenses([]);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setList((prevdata) => ({ ...prevdata, [name]: value }));
     };
 
-    const handleFormChange = async(event) => {
+    const handleFormChange = async (event) => {
         event.preventDefault();
         setLoading(true);
-        setError(null)
+        setError(null);
         console.log("Form Data:", list);
-      
-       try{
-        if(editId){
-            const expenseref=ref(realtimedatabase,`expenses/${editId}`);
-            await update(expenseref,list);
-            setEditId(null)
-        }
-        else{
-const expenseref=ref(realtimedatabase,'expenses');
- await push(expenseref,list);
-       }
-       setList({totalmoney:'',description:'', category:""})
-    }
-       catch(error){
-        console.error('error saving data:',error);
-        setError(error.message|| 'error occured while saving data')
-       }
-       setLoading(false);
-    };
-    const deleteExpense=async(id)=>{
-        try{
-        const expenseref=ref(realtimedatabase,`expenses/${id}`);
-        await remove(expenseref);
-        setExpenses((prevExpenses)=>prevExpenses.filter((expense)=>expense.id!==id));
-    }catch(err){
-        console.error('error deleted expenses');
-        setError(err.message|| 'an error occured while deleting')
 
-    }
-    }
-    const handleEdit=(expense)=>{
+        try {
+            if (editId) {
+                const expenseref = ref(realtimedatabase, `expenses/${editId}`);
+                await update(expenseref, list);
+                setEditId(null);
+            } else {
+                const expenseref = ref(realtimedatabase, 'expenses');
+                await push(expenseref, list);
+            }
+            setList({ totalmoney: '', description: '', category: "" });
+        } catch (error) {
+            console.error('error saving data:', error);
+            setError(error.message || 'error occurred while saving data');
+        }
+        setLoading(false);
+    };
+
+    const deleteExpense = async (id) => {
+        try {
+            const expenseref = ref(realtimedatabase, `expenses/${id}`);
+            await remove(expenseref);
+            setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id));
+        } catch (err) {
+            console.error('error deleted expenses');
+            setError(err.message || 'an error occurred while deleting');
+        }
+    };
+
+    const handleEdit = (expense) => {
         setEditId(expense.id);
         setList({
-            totalmoney:expense.totalmoney,
-            description:expense.description,
-            category:expense.category
-        })
-    }
+            totalmoney: expense.totalmoney,
+            description: expense.description,
+            category: expense.category
+        });
+    };
+
+   
+    const totalExpense = expenses.reduce((sum, expense) => sum + parseFloat(expense.totalmoney || 0), 0);
+
+    const showPremiumButton = totalExpense > 1000;
+
     return (
         <Container>
             <Row className="justify-content-md-center mt-5">
@@ -113,13 +120,11 @@ const expenseref=ref(realtimedatabase,'expenses');
                                 <option value="petrol">Petrol</option>
                                 <option value="salary">Salary</option>
                             </Form.Select>
-
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={loading}>{loading ? 'saving...':'expenses'}
-                       
+                        <Button variant="primary" type="submit" disabled={loading}>
+                            {loading ? 'saving...' : 'Add Expense'}
                         </Button>
-                      
                     </Form>
                     <ListGroup className="mt-4">
                         {expenses.map((expense) => (
@@ -127,15 +132,23 @@ const expenseref=ref(realtimedatabase,'expenses');
                                 <div>
                                     <strong>{expense.category}:</strong> {expense.description} - ${expense.totalmoney}
                                 </div>
-                                <Button  onClick={()=>handleEdit(expense)}>Edit</Button>
+                                <Button onClick={() => handleEdit(expense)}>Edit</Button>
                                 <Button variant="danger" size="sm" onClick={() => deleteExpense(expense.id)}>
                                     Delete
                                 </Button>
                             </ListGroup.Item>
-                        
                         ))}
                     </ListGroup>
-                 
+
+                  
+                    <h3 className="mt-4">Total Expense: ₹{totalExpense.toFixed(2)}</h3>
+
+               
+                    {showPremiumButton && (
+                        <Button variant="warning" className="mt-3" onClick={() => alert('Premium features activated!')}>
+                            Activate Premium
+                        </Button>
+                    )}
                 </Col>
             </Row>
         </Container>

@@ -19,6 +19,7 @@ const MyNavbar = () => {
           <NavLink as={Link} to="/Home" className="nav-link">
             Home
           </NavLink>
+          <NavLink as ={Link} to='/'>Signup</NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
