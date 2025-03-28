@@ -124,7 +124,7 @@ export const expenseSlice = createSlice({
             state.loading = false;
             state.expenses = state.expenses.filter(expense => expense.id !== action.payload);
             const totalExpense = state.expenses.reduce((sum, expense) => sum + parseFloat(expense.totalmoney || 0), 0);
-            state.showPremiumButton = totalExpense >= 1000; 
+            state.showPremiumButton = totalExpense >= 10000; 
         });
         builder.addCase(deleteExpense.rejected, (state, action) => {
             state.loading = false;

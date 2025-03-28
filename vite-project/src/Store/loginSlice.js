@@ -1,32 +1,19 @@
+// Store/loginSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { auth,db } from '../firebase/firebase'; 
-import { signInWithEmailAndPassword, sendEmailVerification  } from 'firebase/auth';
-
-const initialState = {
-  user: null, 
-  isLoading: false,
-  error: null,
-  isLoggedIn: false, 
-};
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
 
 export const loginUser = createAsyncThunk(
   'login/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        credentials.email,
-        credentials.password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
       const user = userCredential.user;
-console.log(user)
-      
-
-    
+      // Extract serializable user data
       return {
         uid: user.uid,
         email: user.email,
-      
+        // Add other serializable properties you need
       };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -36,17 +23,19 @@ console.log(user)
 
  export const loginSlice = createSlice({
   name: 'login',
-  initialState,
+  initialState: {
+    user: null,
+    isLoading: false,
+    error: null,
+    isLoggedIn: false,
+  },
   reducers: {
     resetLoginState: (state) => {
       state.isLoading = false;
       state.error = null;
-    },
-    logoutUser: (state) => {
+      // Ensure you are also clearing the non-serializable user object if it's present
       state.user = null;
-      state.isLoggedIn = false;
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -56,16 +45,16 @@ console.log(user)
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.user = action.payload; // Store the extracted serializable data
         state.isLoggedIn = true;
-        state.user = action.payload; 
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        state.isLoggedIn = false;
         state.user = null;
+        state.isLoggedIn = false;
       });
   },
 });
 
-export const { resetLoginState, logoutUser } = loginSlice.actions;
+export const { resetLoginState } = loginSlice.actions;

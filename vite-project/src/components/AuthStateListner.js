@@ -1,8 +1,8 @@
-// src/components/AuthStateListener.js
+
 import React, { useEffect } from 'react';
 import { auth } from '../firebase/firebase';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../Store/authSlice';// Import the setUser action
+import { setUser } from '../Store/authSlice';
 
 const AuthStateListener = () => {
     const dispatch = useDispatch();
@@ -12,10 +12,10 @@ const AuthStateListener = () => {
             dispatch(setUser(authUser ? { uid: authUser.uid, email: authUser.email } : null));
         });
 
-        return () => unsubscribe(); // Unsubscribe on unmount
+        return () => unsubscribe(); 
     }, [dispatch]);
 
-    return null; // This component doesn't render anything
+   
 };
 
 export default AuthStateListener;

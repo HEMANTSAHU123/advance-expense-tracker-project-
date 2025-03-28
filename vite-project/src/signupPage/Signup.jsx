@@ -3,7 +3,8 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MyNavbar from './Navbar';
 import { useDispatch,useSelector } from 'react-redux';
-import { signupUser,resetSignupState } from '../Store/authSlice'
+import { resetAuthState,signupUser } from '../Store/authSlice';
+import { Link } from 'react-router-dom';
 const Signup = () => {
   const [data, setData] = useState({
     email: '',
@@ -27,13 +28,13 @@ const{error,user,isLoading}=useSelector(state=>state.auth)
     if (user) {
       console.log('user registered succesfully', user);
       navigate('/login');
-      dispatch(resetSignupState());
+      dispatch(resetAuthState());
   }
   if (error) {
       console.log('Signup error', error);
   }
   return () => {
-      dispatch(resetSignupState());
+      dispatch(resetAuthState());
   };
 }, [user, error, navigate, dispatch]);
 
@@ -53,7 +54,7 @@ const{error,user,isLoading}=useSelector(state=>state.auth)
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                      type="email"
+                      type="text"
                       placeholder="Enter email"
                       name="email"
                       value={data.email}
@@ -64,7 +65,7 @@ const{error,user,isLoading}=useSelector(state=>state.auth)
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                      type="password"
+                      type="text"
                       placeholder="Password"
                       name="password"
                       value={data.password}
@@ -78,7 +79,7 @@ const{error,user,isLoading}=useSelector(state=>state.auth)
                 </Form>
                 <p className="text-center mt-3">
 
-                  have an account? <a href="/login">Login</a>
+                  have an account? <Link to="/login">login</Link>
                 </p>
               </Col>
             </Row>
