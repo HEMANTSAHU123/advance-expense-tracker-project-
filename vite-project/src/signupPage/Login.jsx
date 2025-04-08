@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
+
 import { Envelope, Lock } from 'react-bootstrap-icons';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -82,7 +82,7 @@ const Login = () => {
                                 onChange={handleForm}
                                 className="py-2"
                                 disabled={isLoading}
-                                autoComplete="current-password" // Added autocomplete attribute
+                                autoComplete="current-password" 
                             />
                         </Form.Group>
 

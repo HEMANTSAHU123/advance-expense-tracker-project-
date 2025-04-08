@@ -1,4 +1,4 @@
-// Store/loginSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
@@ -9,11 +9,11 @@ export const loginUser = createAsyncThunk(
     try {
       const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
       const user = userCredential.user;
-      // Extract serializable user data
+      
       return {
         uid: user.uid,
         email: user.email,
-        // Add other serializable properties you need
+       
       };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -33,7 +33,7 @@ export const loginUser = createAsyncThunk(
     resetLoginState: (state) => {
       state.isLoading = false;
       state.error = null;
-      // Ensure you are also clearing the non-serializable user object if it's present
+    
       state.user = null;
     },
   },
@@ -45,7 +45,7 @@ export const loginUser = createAsyncThunk(
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload; // Store the extracted serializable data
+        state.user = action.payload; 
         state.isLoggedIn = true;
       })
       .addCase(loginUser.rejected, (state, action) => {

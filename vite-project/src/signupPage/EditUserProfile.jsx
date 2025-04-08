@@ -87,14 +87,14 @@ const EditUserProfile = () => {
             <FormLabel>
               <Github className="me-2" /> profile Name
             </FormLabel>
-            <FormControl type="text" name="fullname" value={data.fullname} onChange={handleChange} />
+            <FormControl type="text" name="fullname" value={data.fullname} onChange={handleChange}  required/>
           </FormGroup>
           <FormGroup>
             <FormLabel>
               <Globe className="me-2" />
               Profile Photo URL
             </FormLabel>
-            <FormControl type="text" name="url" value={data.url} onChange={handleChange} />
+            <FormControl type="text" name="url" value={data.url} onChange={handleChange} required />
           </FormGroup>
           <Button variant="primary" type="submit">
             Update

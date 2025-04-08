@@ -1,4 +1,3 @@
-// Store/expenseSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { realtimedatabase } from '../firebase/firebase';
 import { ref, push, onValue, remove, update } from 'firebase/database';
@@ -70,7 +69,7 @@ export const expenseSlice = createSlice({
         expenses: [],
         loading: false,
         error: null,
-        showPremiumButton: false, // New state for the premium button
+        showPremiumButton: false, 
     },
     reducers: {
         clearError: (state) => {
@@ -81,7 +80,7 @@ export const expenseSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // Fetch Expenses
+        
         builder.addCase(fetchExpenses.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -90,7 +89,7 @@ export const expenseSlice = createSlice({
             state.loading = false;
             state.expenses = action.payload;
             const totalExpense = action.payload.reduce((sum, expense) => sum + parseFloat(expense.totalmoney || 0), 0);
-            state.showPremiumButton = totalExpense >= 1000; // CHANGED HERE
+            state.showPremiumButton = totalExpense >= 1000; 
         });
         builder.addCase(fetchExpenses.rejected, (state, action) => {
             state.loading = false;
@@ -99,7 +98,7 @@ export const expenseSlice = createSlice({
             state.showPremiumButton = false;
         });
 
-        // Add Expense
+        
         builder.addCase(addExpense.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -108,14 +107,14 @@ export const expenseSlice = createSlice({
             state.loading = false;
             state.expenses.push(action.payload);
             const totalExpense = state.expenses.reduce((sum, expense) => sum + parseFloat(expense.totalmoney || 0), 0);
-            state.showPremiumButton = totalExpense >= 1000; // CHANGED HERE
+            state.showPremiumButton = totalExpense >= 1000; 
         });
         builder.addCase(addExpense.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
         });
 
-        // Delete Expense
+       
         builder.addCase(deleteExpense.pending, (state) => {
             state.loading = true;
             state.error = null;
